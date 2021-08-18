@@ -1,0 +1,8 @@
+Demo - Accessing Servers in a Private Subnet via Jump Box
+
+Create 2 Key Pairs - jumpbox-key , private-key
+
+ssh -i "jumpbox-key.pem" ec2-user@ec2-52-201-235-252.compute-1.amazonaws.com
+
+Copy keys to public server
+scp -i "jumpbox-key.pem" "private-server-devops-key.pem" ec2-user@ec2-52-201-235-252.compute-1.amazonaws.com:/home/ec2-user/private-server-devops-key.pem
