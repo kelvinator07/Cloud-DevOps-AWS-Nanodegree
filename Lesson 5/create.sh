@@ -1,0 +1,1 @@
+aws cloudformation create-stack  --stack-name RDSstack --region us-east-1 --template-body file://RDSTemplate.yml --parameters file://RDSparameters.json --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM" 
