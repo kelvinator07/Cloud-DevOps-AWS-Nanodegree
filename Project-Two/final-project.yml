@@ -311,11 +311,10 @@ Resources:
           aws s3 cp s3://udacity-demo-1/udacity.zip .
           unzip -o udacity.zip            
       ImageId: !Ref AMItoUse
-      KeyName: LinuxUbuntu18
       IamInstanceProfile: !Ref ProfileWithRolesForOurApp
       SecurityGroups:
       - Ref: WebServerSecGroup
-      InstanceType: t2.micro
+      InstanceType: t3.small
       BlockDeviceMappings:
       - DeviceName: "/dev/sdk"
         Ebs:
@@ -390,7 +389,7 @@ Outputs:
 
   LoadBalancerDNSName:
     Description: DNS name or Public URL of the Load Balancer
-    Value: !Join ["", ["http://", !GetAtt WebAppLB.DNSName]]
+    Value: !Join ["", ["http://", !GetAtt WebAppLB.DNSName]] # http://final-webap-35a1ht430tar-25175907.us-east-1.elb.amazonaws.com/
     Export:
       Name: !Sub ${EnvironmentName}-LB-DNS
 
