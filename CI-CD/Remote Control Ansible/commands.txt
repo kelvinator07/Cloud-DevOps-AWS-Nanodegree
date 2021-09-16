@@ -1,0 +1,2 @@
+chmod 400 udacity.pem
+ansible-playbook main-remote.yml -i inventory --private-key ~/Downloads/udacity.pem 

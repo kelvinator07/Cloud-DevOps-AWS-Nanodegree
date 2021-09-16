@@ -1,0 +1,34 @@
+# Exercise: Promote to Production
+AWSTemplateFormatVersion: 2010-09-09
+Description: >
+ Kelvin Isievwore / Exercise: Promote to Production
+ Template to Deploy an Bucket with BucketPolicy Using CloudFormation.
+
+Parameters:
+# New Bucket name
+  MyBucketName:
+    Description: Existing Bucket name
+    Type: String
+    # Default: mybucket644752792305
+
+Resources:
+  WebsiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref MyBucketName
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: error.html
+
+  WebsiteBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref 'WebsiteBucket'
+      PolicyDocument:
+        Statement:
+        - Sid: PublicReadForGetBucketObjects
+          Effect: Allow
+          Principal: '*'
+          Action: s3:GetObject
+          Resource: !Join ['', ['arn:aws:s3:::', !Ref 'WebsiteBucket', /*]]

@@ -1,0 +1,28 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
+version: 2.1
+# Use a package of configuration called an orb.
+# Exercise: Config and Deployment
+# Orchestrate or schedule a set of jobs
+jobs:
+  configure_infrastructure: 
+    docker:
+      - image: python:3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["8c:1a:3e:87:66:07:e0:75:7d:69:16:bb:81:dd:8d:8d"] # You can get this ID in the section where you registered the SSH Key
+      - run:
+          name: Install dependencies
+          command: |
+            # install the dependencies needed for your playbook
+            apk add --update ansible 
+      - run:
+          name: Configure server
+          command: |
+            ansible-playbook -i inventory.txt main4.yml
+
+workflows:
+  # Name the workflow "my_workflow"
+  my_workflow:
+    jobs:
+      - configure_infrastructure
